@@ -16,6 +16,14 @@ namespace XML_Parser
         ZipFile zip;
         string filePath;
         string destination;
+        List<string> fileList;
+
+
+        public List<string> FileList
+        {
+            get { return fileList; }
+        }
+
 
 
         public Dekompresor()
@@ -52,6 +60,8 @@ namespace XML_Parser
                 if (file.FileName.Substring(file.FileName.Length-3) == "txt")
                 {
                     file.Extract(destination);
+                    fileList.Add( destination + "\\" + file.FileName);
+                    
                 }
             }
         }
