@@ -15,7 +15,7 @@ namespace XML_Parser
         public Form1()
         {
             InitializeComponent();
-            //ss
+            
         }
     }
 }
