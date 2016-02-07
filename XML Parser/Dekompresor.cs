@@ -8,6 +8,9 @@ using Ionic.Zip;
 
 namespace XML_Parser
 {
+    /// <summary>
+    /// Pozwala dekompresować pliki txt z archiwum ZIP
+    /// </summary>
     class Dekompresor
     {
         ZipFile zip;
@@ -46,7 +49,7 @@ namespace XML_Parser
             zip = ZipFile.Read(filePath);
             foreach (var file in zip)
             {
-                if (file.FileName.Substring(file.FileName.Length-4) == "txt")
+                if (file.FileName.Substring(file.FileName.Length-3) == "txt")
                 {
                     file.Extract(destination);
                 }
@@ -56,10 +59,10 @@ namespace XML_Parser
         string getTempFolder()
         {
             string dest;
-            dest = Environment.GetEnvironmentVariable("TEMP") + "parserxml";
+            dest = Environment.GetEnvironmentVariable("TEMP") + @"\parserxml";
             if (Directory.Exists(dest))
             {
-                Directory.Delete(dest);
+                Directory.Delete(dest,true);
             }
             Directory.CreateDirectory(dest);
             return dest;
