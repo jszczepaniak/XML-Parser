@@ -17,5 +17,28 @@ namespace XML_Parser
             InitializeComponent();
             
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Dekompresor decomp = new Dekompresor();
+            string file;
+            OpenFileDialog fdial = new OpenFileDialog();
+
+            fdial.ShowDialog();
+            file = fdial.FileName;
+
+            if (decomp.setFilePath(file))
+            {
+                decomp.uncompress();
+                MessageBox.Show("done.");
+            }
+            else
+            {
+                MessageBox.Show("To nie jest plik ZIP");
+            }
+
+            decomp = null;
+
+        }
     }
 }
