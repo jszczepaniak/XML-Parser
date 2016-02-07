@@ -17,5 +17,12 @@ namespace XML_Parser
             InitializeComponent();
             
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Dekompresor decomp = new Dekompresor();
+            decomp.setFilePath(@"D:\OneDrive\Dev\Temp\temp.zip");
+
+        }
     }
 }
