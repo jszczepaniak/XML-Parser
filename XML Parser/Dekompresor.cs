@@ -16,7 +16,7 @@ namespace XML_Parser
         ZipFile zip;
         string filePath;
         string destination;
-        List<string> fileList;
+        List<string> fileList = new List<string>();
 
 
         public List<string> FileList

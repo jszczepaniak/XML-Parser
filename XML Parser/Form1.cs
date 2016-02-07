@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace XML_Parser
 {
-    public partial class Form1 : Form
+    public partial class Main : Form
     {
-        public Form1()
+        public Main()
         {
             InitializeComponent();
             
@@ -38,7 +38,7 @@ namespace XML_Parser
             }
 
             decomp = null;
-
+            fdial = null;
         }
     }
 }
