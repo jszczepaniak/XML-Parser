@@ -40,5 +40,12 @@ namespace XML_Parser
             decomp = null;
             fdial = null;
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            DateTime date = new DateTime(2016, 01, 01);
+            DateFileFinder finder = new DateFileFinder(date, @"D:\OneDrive\Dev\Temp\daty");
+            
+        }
     }
 }
