@@ -53,14 +53,18 @@ namespace XML_Parser
         public void uncompress()
         {
 
-
+            string unpackedFolder;
             zip = ZipFile.Read(filePath);
             foreach (var file in zip)
+                
             {
                 if (file.FileName.Substring(file.FileName.Length-3) == "txt")
                 {
-                    file.Extract(destination);
-                    fileList.Add( destination + "\\" + file.FileName);
+                    unpackedFolder = destination + "\\" + Path.GetFileName(zip.Name);
+
+                    Directory.CreateDirectory(unpackedFolder);
+                    file.Extract(unpackedFolder);
+                    fileList.Add(unpackedFolder + "\\" + file.FileName);
                     
                 }
             }
@@ -76,6 +80,7 @@ namespace XML_Parser
             }
             Directory.CreateDirectory(dest);
             return dest;
+            Path.
         }
     }
 }

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace XML_Parser
 {
@@ -44,8 +45,24 @@ namespace XML_Parser
         private void button2_Click(object sender, EventArgs e)
         {
             DateTime date = new DateTime(2016, 01, 01);
+            Dekompresor dekomp;
+            //DateFileFinder finder = new DateFileFinder(date, @"D:\OneDrive\Dev\Temp\daty");
+
+            //foreach (String STR in finder.FilesPaths)
+            //{
+            //    Debug.Print(STR);
+            //}
+            //Debug.Print(finder.FilesPaths.ToString());
+
             DateFileFinder finder = new DateFileFinder(date, @"D:\OneDrive\Dev\Temp\daty");
-            
+            dekomp = new Dekompresor();
+            foreach (string filePath in finder.FilesPaths)
+            {
+                dekomp.setFilePath(filePath);
+                dekomp.uncompress();
+                Debug.Print(filePath);
+            }
+
         }
     }
 }

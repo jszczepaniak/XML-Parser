@@ -9,13 +9,13 @@ namespace XML_Parser
 {
     class DateFileFinder
     {
-        List<string> filesPaths;
+        List<string> filesPaths = new List<string>();
 
         string folderName;
         public DateTime Date { get; set; }
         public string DateRRMMDD { get; set; }
 
-        public List<string> FilesPaths
+        public List<string> FilesPaths 
         {
             get { return filesPaths; }
         }
@@ -57,7 +57,18 @@ namespace XML_Parser
                     paths.Add(filePath);
                 }
             }
+            if(Directory.EnumerateDirectories(path).Count() !=0)
+            {
+
+
+                foreach (string folderPath in Directory.EnumerateDirectories(path))
+                {
+
+                    paths.AddRange(findFileByDate(date, folderPath));
+                }
+            }
             return paths;
+            
         }
     }
 }
