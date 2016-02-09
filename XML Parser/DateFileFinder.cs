@@ -31,7 +31,7 @@ namespace XML_Parser
             Date = date;
             DateRRMMDD = dateToStringRRMMDD(date);
 
-            filesPaths = findFileByDate(date, path);
+            filesPaths = findFiles(date, path);
         }
 
         string dateToStringRRMMDD(DateTime date)
@@ -43,8 +43,13 @@ namespace XML_Parser
 
             return year + month + day;
         }
-
-        List<string> findFileByDate (DateTime date, string path)
+        /// <summary>
+        /// Zwraca pliki z nazwą RRMMDD w zależności od podanej daty
+        /// </summary>
+        /// <param name="date">Dta, której trzeba użyć do szukania nazwy</param>
+        /// <param name="path">Scieżka do szukania</param>
+        /// <returns>Lista wyszukanych ścieżek do plików</returns>
+        List<string> findFiles (DateTime date, string path)
         {
             string fileNameBeginning = dateToStringRRMMDD(date);
             List<string> paths = new List<string>();
@@ -52,7 +57,7 @@ namespace XML_Parser
             foreach (string filePath in Directory.EnumerateFiles(path))
             {
                 fileName = Path.GetFileName(filePath);
-                if (fileName.Substring(4).ToUpper() == ".ZIP" | fileName.Substring(0,6) == fileNameBeginning)
+				if (Path.GetExtension(fileName).ToUpper() == ".ZIP" & fileName.Substring(0,6) == fileNameBeginning)
                 {
                     paths.Add(filePath);
                 }
@@ -64,11 +69,42 @@ namespace XML_Parser
                 foreach (string folderPath in Directory.EnumerateDirectories(path))
                 {
 
-                    paths.AddRange(findFileByDate(date, folderPath));
+                    paths.AddRange(findFiles(date, folderPath));
                 }
             }
             return paths;
             
+        }
+        /// <summary>
+        /// Zwraca pliki txt z katalogu i podkatalogów
+        /// </summary>
+        /// <param name="path">Katalog do przeszukania</param>
+        /// <returns>Lista wyszukanych ścieżek do plików</returns>
+        public List<string> findFiles(string path)
+        {
+
+            List<string> paths = new List<string>();
+            string fileName;
+            foreach (string filePath in Directory.EnumerateFiles(path))
+            {
+                fileName = Path.GetFileName(filePath);
+                if (Path.GetExtension(fileName).ToUpper() == ".TXT")
+                {
+                    paths.Add(filePath);
+                }
+            }
+            if (Directory.EnumerateDirectories(path).Count() != 0)
+            {
+
+
+                foreach (string folderPath in Directory.EnumerateDirectories(path))
+                {
+
+                    paths.AddRange(findFiles(folderPath));
+                }
+            }
+            return paths;
+
         }
     }
 }

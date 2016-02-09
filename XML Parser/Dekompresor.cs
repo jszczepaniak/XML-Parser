@@ -15,7 +15,9 @@ namespace XML_Parser
     {
         ZipFile zip;
         string filePath;
-        string destination;
+        //string Destination;
+        public string Destination { get; private set; }
+
         List<string> fileList = new List<string>();
 
 
@@ -28,7 +30,7 @@ namespace XML_Parser
 
         public Dekompresor()
         {
-            destination = getTempFolder();
+            Destination = getTempFolder();
         }
 
         /// <summary>
@@ -56,31 +58,31 @@ namespace XML_Parser
             string unpackedFolder;
             zip = ZipFile.Read(filePath);
             foreach (var file in zip)
-                
+
             {
-                if (file.FileName.Substring(file.FileName.Length-3) == "txt")
+                if (file.FileName.Substring(file.FileName.Length - 3) == "txt")
                 {
-                    unpackedFolder = destination + "\\" + Path.GetFileName(zip.Name);
+                    unpackedFolder = Destination + "\\" + Path.GetFileName(zip.Name);
 
                     Directory.CreateDirectory(unpackedFolder);
                     file.Extract(unpackedFolder);
                     fileList.Add(unpackedFolder + "\\" + file.FileName);
-                    
+
                 }
             }
         }
 
-        string getTempFolder()
+        public string getTempFolder()
         {
             string dest;
             dest = Environment.GetEnvironmentVariable("TEMP") + @"\parserxml";
             if (Directory.Exists(dest))
             {
-                Directory.Delete(dest,true);
+                Directory.Delete(dest, true);
             }
             Directory.CreateDirectory(dest);
             return dest;
-            Path.
+
         }
     }
 }

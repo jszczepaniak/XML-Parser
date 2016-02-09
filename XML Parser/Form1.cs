@@ -54,8 +54,15 @@ namespace XML_Parser
             //}
             //Debug.Print(finder.FilesPaths.ToString());
 
-            DateFileFinder finder = new DateFileFinder(date, @"D:\OneDrive\Dev\Temp\daty");
+            string dir;
+            FolderBrowserDialog fdial = new FolderBrowserDialog();
+
+            fdial.ShowDialog();
+            dir = fdial.SelectedPath;
+
+            DateFileFinder finder = new DateFileFinder(date, dir);
             dekomp = new Dekompresor();
+
             foreach (string filePath in finder.FilesPaths)
             {
                 dekomp.setFilePath(filePath);
@@ -63,6 +70,8 @@ namespace XML_Parser
                 Debug.Print(filePath);
             }
 
+            List<string> filesPaths ;
+            filesPaths = finder.findFiles(dekomp.Destination);
         }
     }
 }
