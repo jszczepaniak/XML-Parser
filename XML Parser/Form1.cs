@@ -8,44 +8,53 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
+using System.IO;
 
 namespace XML_Parser
 {
     public partial class Main : Form
     {
+        string tempDir;
+
         public Main()
         {
             InitializeComponent();
-            
+            tempDir = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
+          
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Dekompresor decomp = new Dekompresor();
-            string file;
-            OpenFileDialog fdial = new OpenFileDialog();
+            //Dekompresor decomp = new Dekompresor();
+            //string file;
+            //OpenFileDialog fdial = new OpenFileDialog();
 
-            fdial.ShowDialog();
-            file = fdial.FileName;
+            //fdial.ShowDialog();
+            //file = fdial.FileName;
 
-            if (decomp.setFilePath(file))
-            {
-                decomp.uncompress();
-                MessageBox.Show("done.");
-            }
-            else
-            {
-                MessageBox.Show("To nie jest plik ZIP");
-            }
+            //if (decomp.setFilePath(file))
+            //{
+            //    decomp.uncompress();
+            //    MessageBox.Show("done.");
+            //}
+            //else
+            //{
+            //    MessageBox.Show("To nie jest plik ZIP");
+            //}
 
-            decomp = null;
-            fdial = null;
+            //decomp = null;
+            //fdial = null;
         }
+
+
+
+
 
         private void button2_Click(object sender, EventArgs e)
         {
-            DateTime date = new DateTime(2016, 01, 01);
+            DateTime date = dateTimePicker1.Value;
             Dekompresor dekomp;
+
             //DateFileFinder finder = new DateFileFinder(date, @"D:\OneDrive\Dev\Temp\daty");
 
             //foreach (String STR in finder.FilesPaths)
@@ -61,17 +70,23 @@ namespace XML_Parser
             dir = fdial.SelectedPath;
 
             DateFileFinder finder = new DateFileFinder(date, dir);
-            dekomp = new Dekompresor();
+
+            Directory.CreateDirectory(tempDir);
+
 
             foreach (string filePath in finder.FilesPaths)
             {
-                dekomp.setFilePath(filePath);
+                dekomp = new Dekompresor(filePath, tempDir);
                 dekomp.uncompress();
-                Debug.Print(filePath);
+                //dekomp.setFilePath(filePath);
+                //dekomp.uncompress();
+                //Debug.Print(filePath);
             }
 
             List<string> filesPaths ;
-            filesPaths = finder.findFiles(dekomp.Destination);
+            filesPaths = finder.findFiles(tempDir);
+            Debug.Print(tempDir);
+            Directory.Delete(tempDir, true);
         }
     }
 }

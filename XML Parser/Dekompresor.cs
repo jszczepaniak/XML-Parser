@@ -14,23 +14,37 @@ namespace XML_Parser
     class Dekompresor
     {
         ZipFile zip;
-        string filePath;
-        //string Destination;
-        public string Destination { get; private set; }
+        //string filePath;
+        private String sourcePath;
+        string DestinationPath { get;  set; }
+        List<string> unzippedFileList = new List<string>();
 
-        List<string> fileList = new List<string>();
-
+        String SourcePath
+        {
+            set
+            {
+                if (ZipFile.IsZipFile(value))
+                {
+                    sourcePath = value;
+                }
+                else
+                {
+                    sourcePath = null;
+                }
+            }
+        }
 
         public List<string> FileList
         {
-            get { return fileList; }
+            get { return unzippedFileList; }
         }
 
 
 
-        public Dekompresor()
+        public Dekompresor(string sourcePath, string destinationPath)
         {
-            Destination = getTempFolder();
+            SourcePath = sourcePath;
+            DestinationPath = destinationPath;
         }
 
         /// <summary>
@@ -38,52 +52,55 @@ namespace XML_Parser
         /// </summary>
         /// <param name="path">Ścieżka pliku.</param>
         /// <returns></returns>
-        public Boolean setFilePath(string path)
+        //public Boolean setFilePath(string path)
+        //{
+        //    if (ZipFile.IsZipFile(path))
+        //    {
+
+        //        filePath = path;
+        //        return true;
+        //    }
+        //    else
+        //    {
+        //        return false;
+        //    }
+        //}
+
+        public List<string> uncompress()
         {
-            if (ZipFile.IsZipFile(path))
+            if (sourcePath == null)
             {
-
-                filePath = path;
-                return true;
+                return null;
             }
-            else
-            {
-                return false;
-            }
-        }
-
-        public void uncompress()
-        {
-
             string unpackedFolder;
-            zip = ZipFile.Read(filePath);
+            zip = ZipFile.Read(sourcePath);
             foreach (var file in zip)
 
             {
-                if (file.FileName.Substring(file.FileName.Length - 3) == "txt")
+                if (file.FileName.Substring(file.FileName.Length - 4).ToUpper() == ".TXT")
                 {
-                    unpackedFolder = Destination + "\\" + Path.GetFileName(zip.Name);
+                    unpackedFolder = Path.Combine(DestinationPath, Path.GetFileName(zip.Name));
 
                     Directory.CreateDirectory(unpackedFolder);
                     file.Extract(unpackedFolder);
-                    fileList.Add(unpackedFolder + "\\" + file.FileName);
-
+                    unzippedFileList.Add(Path.Combine(unpackedFolder, file.FileName));
                 }
             }
+            return unzippedFileList;
         }
 
-        public string getTempFolder()
-        {
-            string dest;
-            dest = Environment.GetEnvironmentVariable("TEMP") + @"\parserxml";
-            if (Directory.Exists(dest))
-            {
-                Directory.Delete(dest, true);
-            }
-            Directory.CreateDirectory(dest);
-            return dest;
+        //public string getTempFolder()
+        //{
+        //    string dest;
+        //    dest = Environment.GetEnvironmentVariable("TEMP") + @"\parserxml";
+        //    if (Directory.Exists(dest))
+        //    {
+        //        Directory.Delete(dest, true);
+        //    }
+        //    Directory.CreateDirectory(dest);
+        //    return dest;
 
-        }
+        //}
     }
 }
 
