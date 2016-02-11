@@ -54,6 +54,7 @@ namespace XML_Parser
         {
             DateTime date = dateTimePicker1.Value;
             Dekompresor dekomp;
+            XmlParser parser = new XmlParser(Char.Parse("\t"));
 
             //DateFileFinder finder = new DateFileFinder(date, @"D:\OneDrive\Dev\Temp\daty");
 
@@ -86,7 +87,36 @@ namespace XML_Parser
             List<string> filesPaths ;
             filesPaths = finder.findFiles(tempDir);
             Debug.Print(tempDir);
-            Directory.Delete(tempDir, true);
+            //Directory.Delete(tempDir, true);
+            foreach (string path in filesPaths)
+            {
+                parser.addFile(path);
+            }
+
+        //    for (int i = 0; i < parser.CsvHeadlines.GetLength(0); i++)
+        //    {
+        //        dataGridView1.Columns.Add(parser.CsvHeadlines[i], parser.CsvHeadlines[i]);
+        //    }
+        //    for (int i = 0; i == parser.CsvFieldsList.Count(); i++)
+        //    {
+        //        for (int j = 0; j < parser.CsvFieldsList.get; j++)
+        //        {
+
+        //        }
+        //    }
+
+        //    foreach (string[] item in parser.CsvFieldsList)
+        //    {
+        //        dataGridView1.Rows.Add(item);
+        //    }
+        }
+
+        private void Main_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (tempDir != "")
+            {
+                Directory.Delete(tempDir, true);
+            }
         }
     }
 }

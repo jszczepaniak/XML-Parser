@@ -9,12 +9,11 @@ using Ionic.Zip;
 namespace XML_Parser
 {
     /// <summary>
-    /// Pozwala dekompresować pliki txt z archiwum ZIP
+    /// Pozwala dekompresować pliki txt z archiwum ZIP i szukać plików txt w folderze
     /// </summary>
     class Dekompresor
     {
         ZipFile zip;
-        //string filePath;
         private String sourcePath;
         string DestinationPath { get;  set; }
         List<string> unzippedFileList = new List<string>();
@@ -47,25 +46,6 @@ namespace XML_Parser
             DestinationPath = destinationPath;
         }
 
-        /// <summary>
-        /// Ustawia ścieżkę pliku i zwraca prawdę, jeśli plik jest ZIP-em.
-        /// </summary>
-        /// <param name="path">Ścieżka pliku.</param>
-        /// <returns></returns>
-        //public Boolean setFilePath(string path)
-        //{
-        //    if (ZipFile.IsZipFile(path))
-        //    {
-
-        //        filePath = path;
-        //        return true;
-        //    }
-        //    else
-        //    {
-        //        return false;
-        //    }
-        //}
-
         public List<string> uncompress()
         {
             if (sourcePath == null)
@@ -77,7 +57,7 @@ namespace XML_Parser
             foreach (var file in zip)
 
             {
-                if (file.FileName.Substring(file.FileName.Length - 4).ToUpper() == ".TXT")
+                if (Path.GetExtension(file.FileName).ToUpper() == ".TXT")
                 {
                     unpackedFolder = Path.Combine(DestinationPath, Path.GetFileName(zip.Name));
 
@@ -88,19 +68,6 @@ namespace XML_Parser
             }
             return unzippedFileList;
         }
-
-        //public string getTempFolder()
-        //{
-        //    string dest;
-        //    dest = Environment.GetEnvironmentVariable("TEMP") + @"\parserxml";
-        //    if (Directory.Exists(dest))
-        //    {
-        //        Directory.Delete(dest, true);
-        //    }
-        //    Directory.CreateDirectory(dest);
-        //    return dest;
-
-        //}
     }
 }
 

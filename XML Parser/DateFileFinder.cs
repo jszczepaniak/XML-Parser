@@ -9,15 +9,14 @@ namespace XML_Parser
 {
     class DateFileFinder
     {
-        List<string> filesPaths = new List<string>();
-
         string folderName;
-        public DateTime Date { get; set; }
-        public string DateRRMMDD { get; set; }
+        List<string> ZipFilesPaths = new List<string>();
+        DateTime Date { get; set; }
+        string DateRRMMDD { get; set; }
 
-        public List<string> FilesPaths 
+        public List<string> FilesPaths
         {
-            get { return filesPaths; }
+            get { return ZipFilesPaths; }
         }
 
         /// <summary>
@@ -31,7 +30,7 @@ namespace XML_Parser
             Date = date;
             DateRRMMDD = dateToStringRRMMDD(date);
 
-            filesPaths = findFiles(date, path);
+            ZipFilesPaths = findFiles(date, path);
         }
 
         string dateToStringRRMMDD(DateTime date)
@@ -44,14 +43,14 @@ namespace XML_Parser
             return year + month + day;
         }
         /// <summary>
-        /// Zwraca pliki z nazwą RRMMDD w zależności od podanej daty
+        /// Zwraca pliki zip z nazwą RRMMDD w zależności od podanej daty
         /// </summary>
         /// <param name="date">Dta, której trzeba użyć do szukania nazwy</param>
         /// <param name="path">Scieżka do szukania</param>
         /// <returns>Lista wyszukanych ścieżek do plików</returns>
         List<string> findFiles (DateTime date, string path)
         {
-            string fileNameBeginning = dateToStringRRMMDD(date);
+            string fileNameBeginning = DateRRMMDD;
             List<string> paths = new List<string>();
             string fileName;
             foreach (string filePath in Directory.EnumerateFiles(path))
@@ -64,8 +63,6 @@ namespace XML_Parser
             }
             if(Directory.EnumerateDirectories(path).Count() !=0)
             {
-
-
                 foreach (string folderPath in Directory.EnumerateDirectories(path))
                 {
 
