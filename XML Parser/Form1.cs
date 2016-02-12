@@ -93,10 +93,10 @@ namespace XML_Parser
                 parser.addFile(path);
             }
 
-        //    for (int i = 0; i < parser.CsvHeadlines.GetLength(0); i++)
-        //    {
-        //        dataGridView1.Columns.Add(parser.CsvHeadlines[i], parser.CsvHeadlines[i]);
-        //    }
+            for (int i = 0; i < parser.CsvHeadlines.GetLength(0); i++)
+            {
+                dataGridView1.Columns.Add(parser.CsvHeadlines[i], parser.CsvHeadlines[i]);
+            }
         //    for (int i = 0; i == parser.CsvFieldsList.Count(); i++)
         //    {
         //        for (int j = 0; j < parser.CsvFieldsList.get; j++)
@@ -105,10 +105,10 @@ namespace XML_Parser
         //        }
         //    }
 
-        //    foreach (string[] item in parser.CsvFieldsList)
-        //    {
-        //        dataGridView1.Rows.Add(item);
-        //    }
+            foreach (string[] item in parser.CsvFieldsList)
+            {
+                dataGridView1.Rows.Add(item);
+            }
         }
 
         private void Main_FormClosed(object sender, FormClosedEventArgs e)
