@@ -14,13 +14,27 @@ namespace XML_Parser
 {
     public partial class Main : Form
     {
-        string tempDir;
+        public string tempDir;
+        private string[] delimiter = { "\t", "\"\t\"", "\"\t", "\t\"" };
+
+
+        public void setErrorReason(string errReason)
+        {
+            ctlErrorReason.Text = errReason;
+        }
+
+        public void setErrorCode(string errCode)
+        {
+            ctlErrorCode.Text = errCode;
+        }
+
+
 
         public Main()
         {
             InitializeComponent();
             tempDir = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
-          
+
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -46,15 +60,12 @@ namespace XML_Parser
             //fdial = null;
         }
 
-
-
-
-
         private void button2_Click(object sender, EventArgs e)
         {
             DateTime date = dateTimePicker1.Value;
             Dekompresor dekomp;
-            XmlParser parser = new XmlParser(Char.Parse("\t"));
+            //XmlParser parser = new XmlParser(Char.Parse("\t"),Properties.Settings.Default.ErrorLineCode);
+            XmlParser parser = new XmlParser(delimiter, Properties.Settings.Default.ErrorLineCode);
 
             //DateFileFinder finder = new DateFileFinder(date, @"D:\OneDrive\Dev\Temp\daty");
 
@@ -84,7 +95,7 @@ namespace XML_Parser
                 //Debug.Print(filePath);
             }
 
-            List<string> filesPaths ;
+            List<string> filesPaths;
             filesPaths = finder.findFiles(tempDir);
             Debug.Print(tempDir);
             //Directory.Delete(tempDir, true);
@@ -93,30 +104,31 @@ namespace XML_Parser
                 parser.addFile(path);
             }
 
-        //    for (int i = 0; i < parser.CsvHeadlines.GetLength(0); i++)
-        //    {
-        //        dataGridView1.Columns.Add(parser.CsvHeadlines[i], parser.CsvHeadlines[i]);
-        //    }
-        //    for (int i = 0; i == parser.CsvFieldsList.Count(); i++)
-        //    {
-        //        for (int j = 0; j < parser.CsvFieldsList.get; j++)
-        //        {
+            for (int i = 0; i < parser.CsvHeadlines.GetLength(0); i++)
+            {
+                dataGridView1.Columns.Add(parser.CsvHeadlines[i], parser.CsvHeadlines[i]);
+            }
 
-        //        }
-        //    }
 
-        //    foreach (string[] item in parser.CsvFieldsList)
-        //    {
-        //        dataGridView1.Rows.Add(item);
-        //    }
+            foreach (string[] item in parser.ErrorLineList)
+            {
+                dataGridView1.Rows.Add(item);
+            }
         }
 
         private void Main_FormClosed(object sender, FormClosedEventArgs e)
         {
-            if (tempDir != "")
+            if (tempDir != "" && Properties.Settings.Default.DeleteFIle == true)
             {
                 Directory.Delete(tempDir, true);
             }
+        }
+
+        private void ctlCheck_Click(object sender, EventArgs e)
+        {
+            StatusWindow statuswin;
+            statuswin = new StatusWindow(tempDir, delimiter, ctlChbDate.Value, ctlArn.Text);
+            statuswin.Show();
         }
     }
 }
