@@ -7,8 +7,8 @@
     <ProjectGuid>{58DD237F-3A92-47B8-A2CF-F1888C7564F4}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>XML_Parser</RootNamespace>
-    <AssemblyName>XML Parser</AssemblyName>
+    <RootNamespace>CSV_Parser</RootNamespace>
+    <AssemblyName>CSV Parser</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -87,7 +87,7 @@
     <Compile Include="StatusWindow.Designer.cs">
       <DependentUpon>StatusWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="XmlParser.cs" />
+    <Compile Include="CsvParser.cs" />
     <Compile Include="DateFileFinder.cs" />
     <Compile Include="Dekompresor.cs" />
     <Compile Include="Main.cs">
@@ -110,6 +110,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="StatusWindow.resx">
       <DependentUpon>StatusWindow.cs</DependentUpon>
@@ -123,7 +124,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="XML Parser_TemporaryKey.pfx" />
+    <None Include="Csv Parser_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -1,4 +1,4 @@
-﻿namespace XML_Parser
+﻿namespace CSV_Parser
 {
     partial class StatusWindow
     {
@@ -28,20 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.ctlLogBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.backgroundWorkerErrorSearching = new System.ComponentModel.BackgroundWorker();
             this.SuspendLayout();
             // 
-            // textBox1
+            // ctlLogBox
             // 
-            this.textBox1.Location = new System.Drawing.Point(12, 129);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(356, 269);
-            this.textBox1.TabIndex = 0;
+            this.ctlLogBox.Location = new System.Drawing.Point(12, 129);
+            this.ctlLogBox.Multiline = true;
+            this.ctlLogBox.Name = "ctlLogBox";
+            this.ctlLogBox.ReadOnly = true;
+            this.ctlLogBox.Size = new System.Drawing.Size(356, 269);
+            this.ctlLogBox.TabIndex = 0;
             // 
             // label1
             // 
@@ -63,21 +63,20 @@
             // 
             this.backgroundWorkerErrorSearching.WorkerReportsProgress = true;
             this.backgroundWorkerErrorSearching.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorkerErrorSearching_DoWork);
+            this.backgroundWorkerErrorSearching.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorkerErrorSearching_ProgressChanged);
             // 
             // StatusWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(380, 410);
-            this.ControlBox = false;
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.ctlLogBox);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "StatusWindow";
             this.Text = "Trwa szukanie...";
-            this.TopMost = true;
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -85,7 +84,7 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox ctlLogBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.ComponentModel.BackgroundWorker backgroundWorkerErrorSearching;

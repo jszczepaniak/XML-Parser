@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.IO;
 using Ionic.Zip;
 
-namespace XML_Parser
+namespace CSV_Parser
 {
     /// <summary>
     /// Pozwala dekompresować pliki txt z archiwum ZIP i szukać plików txt w folderze

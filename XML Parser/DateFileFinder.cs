@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 
-namespace XML_Parser
+namespace CSV_Parser
 {
     class DateFileFinder
     {

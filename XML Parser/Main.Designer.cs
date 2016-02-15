@@ -1,4 +1,4 @@
-﻿namespace XML_Parser
+﻿namespace CSV_Parser
 {
     partial class Main
     {
@@ -109,7 +109,6 @@
             this.ctlChbDate.Name = "ctlChbDate";
             this.ctlChbDate.Size = new System.Drawing.Size(200, 20);
             this.ctlChbDate.TabIndex = 6;
-            this.ctlChbDate.Visible = false;
             // 
             // label2
             // 

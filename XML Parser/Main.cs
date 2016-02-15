@@ -10,31 +10,26 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using System.IO;
 
-namespace XML_Parser
+namespace CSV_Parser
 {
     public partial class Main : Form
     {
-        public string tempDir;
+        string tempDir;
         private string[] delimiter = { "\t", "\"\t\"", "\"\t", "\t\"" };
-
-
-        public void setErrorReason(string errReason)
+        public string SetErrorReason
         {
-            ctlErrorReason.Text = errReason;
+            set { ctlErrorReason.Text = value; }
         }
-
-        public void setErrorCode(string errCode)
+        public string setErrorCode
         {
-            ctlErrorCode.Text = errCode;
+            set { ctlErrorCode.Text = value; }
         }
-
-
 
         public Main()
         {
             InitializeComponent();
             tempDir = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
-
+            Directory.CreateDirectory(tempDir);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -64,8 +59,8 @@ namespace XML_Parser
         {
             DateTime date = dateTimePicker1.Value;
             Dekompresor dekomp;
-            //XmlParser parser = new XmlParser(Char.Parse("\t"),Properties.Settings.Default.ErrorLineCode);
-            XmlParser parser = new XmlParser(delimiter, Properties.Settings.Default.ErrorLineCode);
+            //CsvParser parser = new CsvParser(Char.Parse("\t"),Properties.Settings.Default.ErrorLineCode);
+            CsvParser parser = new CsvParser(delimiter, Properties.Settings.Default.ErrorLineCode);
 
             //DateFileFinder finder = new DateFileFinder(date, @"D:\OneDrive\Dev\Temp\daty");
 
@@ -127,7 +122,7 @@ namespace XML_Parser
         private void ctlCheck_Click(object sender, EventArgs e)
         {
             StatusWindow statuswin;
-            statuswin = new StatusWindow(tempDir, delimiter, ctlChbDate.Value, ctlArn.Text);
+            statuswin = new StatusWindow(this, tempDir, delimiter, ctlChbDate.Value, ctlArn.Text);
             statuswin.Show();
         }
     }

@@ -1,4 +1,4 @@
-﻿namespace XML_Parser.Properties {
+﻿namespace CSV_Parser.Properties {
     
     
     // This class allows you to handle specific events on the settings class:

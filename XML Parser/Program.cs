@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace XML_Parser
+namespace CSV_Parser
 {
     static class Program
     {

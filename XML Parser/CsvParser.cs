@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 using System.IO;
 
-namespace XML_Parser
+namespace CSV_Parser
 {
-    class XmlParser
+    class CsvParser
     {
         public List<string[]> ErrorLineList { get; private set; }
         public List<string[]> TransactionLineList { get; private set; }
@@ -17,8 +17,8 @@ namespace XML_Parser
         private string[] delimiter;
         private string fileBeginning;
 
-        //public XmlParser(char delimiter, string fileBeginning)
-        public XmlParser(string[] Delimiter, string fileBeginning)
+        //public CsvParser(char delimiter, string fileBeginning)
+        public CsvParser(string[] Delimiter, string fileBeginning)
         {
             this.delimiter = Delimiter;
             this.fileBeginning = fileBeginning;
@@ -48,12 +48,14 @@ namespace XML_Parser
                 {
                     // Dodanie wiersza do ErrorLineList
                     parsedCsvLine = textLine.Split(delimiter, StringSplitOptions.None);
-                    ErrorLineList.Add(parsedCsvLine);
+                    //ErrorLineList.Add(parsedCsvLine);
+                    TransactionLineList.Add(parsedCsvLine);
 
                     // Dodanie kolejnego wiersza do TransactionLineList
                     textLine = stream.ReadLine();
                     parsedCsvLine = textLine.Split(delimiter, StringSplitOptions.None);
-                    TransactionLineList.Add(parsedCsvLine);
+                    //TransactionLineList.Add(parsedCsvLine);
+                    ErrorLineList.Add(parsedCsvLine);
                 }
 
 
