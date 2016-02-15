@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace CSV_Parser
 {
@@ -22,7 +23,9 @@ namespace CSV_Parser
         public StatusWindow(Main main, string tempDir, string[] delimiter, DateTime fileNameDate, string ARN)
         {
             InitializeComponent();
-            this.tempDir = tempDir;
+            // this.tempDir = tempDir;
+            this.tempDir = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
+            Directory.CreateDirectory(tempDir);
             this.delimiter = delimiter;
             this.fileNameDate = fileNameDate;
             this.ARN = ARN;
@@ -45,11 +48,20 @@ namespace CSV_Parser
             bw.ReportProgress(progress, "Szukam plików..." + Environment.NewLine);
 
             zipfilesPaths = finder.FilesPaths;
+            if (zipfilesPaths.Count() == 0)
+            {
+                progress = 99;
+                bw.ReportProgress(progress, "Nie znaleziono plików." + Environment.NewLine);
+                MessageBox.Show(
+                        "W folderze " + incomingFilesPath + " nie znaleziono pliku rozliczeniowego z potencjalną datą wpłynięcia błędu.", "Nie znaleziono",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
 
             for (int i = 0; i < zipfilesPaths.Count(); i++)
             {
-                progress = 10 + (int)(zipfilesPaths.Count() / 40) * i+1; 
-                bw.ReportProgress(progress, "Wypakowuję plik (" + (i+1).ToString() + " z " + zipfilesPaths.Count().ToString() + ")" + Environment.NewLine);
+                progress = 10 + (int)(40 / zipfilesPaths.Count()) * i+1; 
+                bw.ReportProgress(progress, "Wypakowuję plik (" + (i+1).ToString() + " z " + zipfilesPaths.Count().ToString() + ")..." + Environment.NewLine);
 
                 dekomp = new Dekompresor(zipfilesPaths.ElementAt(i), tempDir);
                 dekomp.uncompress();
@@ -61,13 +73,15 @@ namespace CSV_Parser
             parser = new CsvParser(delimiter, Properties.Settings.Default.ErrorLineCode);
             for (int i = 0; i < txtfilesPaths.Count; i++)
             {
-                progress = 50 + (int)(txtfilesPaths.Count() / 40) * i + 1;
+                progress = 50 + (int)(45 / txtfilesPaths.Count()) * i + 1;
                 bw.ReportProgress(
-                    progress, "Przetwarzam plik (" + (i + 1).ToString() + " z " + txtfilesPaths.Count.ToString() + ")" + Environment.NewLine);
+                    progress, "Przetwarzam plik (" + (i + 1).ToString() + " z " + txtfilesPaths.Count.ToString() + ")..." + Environment.NewLine);
                 parser.addFile(txtfilesPaths.ElementAt(i));
             }
-
-            bw.ReportProgress(100, getChbErrorParameters(parser, ARN));
+            progress = 95;
+            bw.ReportProgress(progress, "Szukam ARN..." + Environment.NewLine);
+            progress = 100;
+            bw.ReportProgress(progress, getChbErrorParameters(parser, ARN));
 
         }
 
@@ -82,7 +96,7 @@ namespace CSV_Parser
                 {
                     MessageBox.Show(
                         "Brak takiego ARN w plikach incoming. Sprawdź inną datę.", "Nie znaleziono",MessageBoxButtons.OK,MessageBoxIcon.Information);
-                    logLine = "Nie znaleziono." + Environment.NewLine;
+                    logLine = "Nie znaleziono ARN." + Environment.NewLine;
                 }
                 else
                 {
@@ -90,6 +104,8 @@ namespace CSV_Parser
                     result = (string[])e.UserState;
                     main.SetErrorReason = result[0];
                     main.setErrorCode = result[1];
+                    //System.Threading.Thread.Sleep(2000);
+                    this.Hide();
                 }
 
             }
@@ -127,6 +143,16 @@ namespace CSV_Parser
                 }
             }
             return null;
+        }
+
+        private void backgroundWorkerErrorSearching_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            //System.Threading.Thread.Sleep(2000);
+            this.Hide();
+            if (Directory.Exists(tempDir) && Properties.Settings.Default.DeleteFIle == true)
+            {
+                Directory.Delete(tempDir, true);
+            }
         }
     }
 }

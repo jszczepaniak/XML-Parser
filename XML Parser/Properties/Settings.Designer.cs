@@ -76,5 +76,14 @@ namespace CSV_Parser.Properties {
                 return ((string)(this["IncomingFilesPath"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public int AddDays {
+            get {
+                return ((int)(this["AddDays"]));
+            }
+        }
     }
 }

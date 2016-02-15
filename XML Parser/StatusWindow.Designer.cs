@@ -36,7 +36,7 @@
             // 
             // ctlLogBox
             // 
-            this.ctlLogBox.Location = new System.Drawing.Point(12, 129);
+            this.ctlLogBox.Location = new System.Drawing.Point(13, 59);
             this.ctlLogBox.Multiline = true;
             this.ctlLogBox.Name = "ctlLogBox";
             this.ctlLogBox.ReadOnly = true;
@@ -54,7 +54,7 @@
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(13, 30);
+            this.progressBar1.Location = new System.Drawing.Point(13, 29);
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(355, 23);
             this.progressBar1.TabIndex = 2;
@@ -64,18 +64,23 @@
             this.backgroundWorkerErrorSearching.WorkerReportsProgress = true;
             this.backgroundWorkerErrorSearching.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorkerErrorSearching_DoWork);
             this.backgroundWorkerErrorSearching.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorkerErrorSearching_ProgressChanged);
+            this.backgroundWorkerErrorSearching.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorkerErrorSearching_RunWorkerCompleted);
             // 
             // StatusWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(380, 410);
+            this.ClientSize = new System.Drawing.Size(383, 340);
+            this.ControlBox = false;
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.ctlLogBox);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "StatusWindow";
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.Text = "Trwa szukanie...";
             this.ResumeLayout(false);
             this.PerformLayout();
