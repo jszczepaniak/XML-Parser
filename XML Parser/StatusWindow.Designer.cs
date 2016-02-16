@@ -40,8 +40,10 @@
             this.ctlLogBox.Multiline = true;
             this.ctlLogBox.Name = "ctlLogBox";
             this.ctlLogBox.ReadOnly = true;
+            this.ctlLogBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.ctlLogBox.Size = new System.Drawing.Size(356, 269);
             this.ctlLogBox.TabIndex = 0;
+            this.ctlLogBox.TextChanged += new System.EventHandler(this.ctlLogBox_TextChanged);
             // 
             // label1
             // 

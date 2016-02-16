@@ -104,7 +104,7 @@ namespace CSV_Parser
                     result = (string[])e.UserState;
                     main.SetErrorReason = result[0];
                     main.setErrorCode = result[1];
-                    //System.Threading.Thread.Sleep(2000);
+
                     this.Hide();
                 }
 
@@ -147,12 +147,17 @@ namespace CSV_Parser
 
         private void backgroundWorkerErrorSearching_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            //System.Threading.Thread.Sleep(2000);
             this.Hide();
             if (Directory.Exists(tempDir) && Properties.Settings.Default.DeleteFIle == true)
             {
                 Directory.Delete(tempDir, true);
             }
+        }
+
+        private void ctlLogBox_TextChanged(object sender, EventArgs e)
+        {
+            ctlLogBox.SelectionStart = ctlLogBox.TextLength;
+            ctlLogBox.ScrollToCaret();
         }
     }
 }

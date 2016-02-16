@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("XML Parser")]
+[assembly: AssemblyTitle("CSV Parser")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("XML Parser")]
+[assembly: AssemblyProduct("CSV Parser")]
 [assembly: AssemblyCopyright("Copyright © Jarosław Szczepaniak 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
