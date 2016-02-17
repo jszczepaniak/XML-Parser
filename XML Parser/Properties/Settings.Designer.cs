@@ -25,7 +25,7 @@ namespace CSV_Parser.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1234")]
+        [global::System.Configuration.DefaultSettingValueAttribute("11223344")]
         public string ErrorLineCode {
             get {
                 return ((string)(this["ErrorLineCode"]));
@@ -43,7 +43,7 @@ namespace CSV_Parser.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("7")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
         public int MessageTextPosition {
             get {
                 return ((int)(this["MessageTextPosition"]));
@@ -52,7 +52,7 @@ namespace CSV_Parser.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("8")]
+        [global::System.Configuration.DefaultSettingValueAttribute("2")]
         public int ErrorCodePosition {
             get {
                 return ((int)(this["ErrorCodePosition"]));

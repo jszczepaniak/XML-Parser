@@ -132,10 +132,10 @@ namespace CSV_Parser
 
             for (int i = 0; i < parser.TransactionLineList.Count(); i++)
             {
-                if (parser.TransactionLineList.ElementAt(i)[arnPosition] == arn)
+                if (parser.TransactionLineList.ElementAt(i)[arnPosition].Replace("\"", "") == arn)
                 {
-                    messageText = parser.ErrorLineList.ElementAt(i)[messageTextPosition];
-                    errorCode = parser.ErrorLineList.ElementAt(i)[errorCodePosition];
+                    messageText = parser.ErrorLineList.ElementAt(i)[messageTextPosition].Replace("\"", "");
+                    errorCode = parser.ErrorLineList.ElementAt(i)[errorCodePosition].Replace("\"", "");
                     result[0] = messageText;
                     result[1] = errorCode;
                     return result;
