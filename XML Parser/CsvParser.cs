@@ -48,14 +48,14 @@ namespace CSV_Parser
                 {
                     // Dodanie wiersza do ErrorLineList
                     parsedCsvLine = textLine.Split(delimiter, StringSplitOptions.None);
-                    //ErrorLineList.Add(parsedCsvLine);
-                    TransactionLineList.Add(parsedCsvLine);
+                    ErrorLineList.Add(parsedCsvLine);
+                    //TransactionLineList.Add(parsedCsvLine);
 
                     // Dodanie kolejnego wiersza do TransactionLineList
                     textLine = stream.ReadLine();
                     parsedCsvLine = textLine.Split(delimiter, StringSplitOptions.None);
-                    //TransactionLineList.Add(parsedCsvLine);
-                    ErrorLineList.Add(parsedCsvLine);
+                    TransactionLineList.Add(parsedCsvLine);
+                    //ErrorLineList.Add(parsedCsvLine);
                 }
 
 
